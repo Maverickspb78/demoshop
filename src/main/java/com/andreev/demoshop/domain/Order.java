@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class Order {
-    private static final String SEQ_NAME = "orders_seq";
+    private static final String SEQ_NAME = "order_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
