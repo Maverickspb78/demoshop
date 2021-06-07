@@ -1,57 +1,54 @@
+-- USERS
 DROP SEQUENCE IF EXISTS user_seq;
-CREATE SEQUENCE user_seq START 1 INCREMENT 1;
+create sequence user_seq start 1 increment 1;
 
 DROP TABLE IF EXISTS users CASCADE;
-CREATE TABLE users
+create table users
 (
     id        int8    not null,
     archive   boolean not null,
+    email     varchar(255),
     name      varchar(255),
     password  varchar(255),
     role      varchar(255),
-    email     varchar(255),
-    bucket_id int8,
     primary key (id)
 );
 
-
+-- BUCKET
 DROP SEQUENCE IF EXISTS bucket_seq;
-CREATE SEQUENCE bucket_seq START 1 INCREMENT 1;
+create sequence bucket_seq start 1 increment 1;
 
 DROP TABLE IF EXISTS buckets CASCADE;
-CREATE TABLE buckets
+create table buckets
 (
     id      int8 not null,
     user_id int8,
     primary key (id)
 );
 
-ALTER TABLE IF EXISTS buckets
-    ADD CONSTRAINT buckets_fk_user
-        FOREIGN KEY (user_id) REFERENCES users;
+-- LINK BETWEEN BUCKET AND USER
+alter table if exists buckets
+    add constraint buckets_fk_user
+        foreign key (user_id) references users;
 
-ALTER TABLE IF EXISTS users
-    ADD CONSTRAINT users_fk_bucket
-        FOREIGN KEY (bucket_id) REFERENCES buckets;
-
-
+-- CATEGORY
 DROP SEQUENCE IF EXISTS category_seq;
-CREATE SEQUENCE category_seq START 1 INCREMENT 1;
+create sequence category_seq start 1 increment 1;
 
 DROP TABLE IF EXISTS categories CASCADE;
-CREATE TABLE categories
+create table categories
 (
     id    int8 not null,
     title varchar(255),
     primary key (id)
 );
 
-
+-- PRODUCT
 DROP SEQUENCE IF EXISTS product_seq;
-CREATE SEQUENCE product_seq START 1 INCREMENT 1;
+create sequence product_seq start 1 increment 1;
 
 DROP TABLE IF EXISTS products CASCADE;
-CREATE TABLE products
+create table products
 (
     id    int8 not null,
     price numeric(19, 2),
@@ -59,79 +56,79 @@ CREATE TABLE products
     primary key (id)
 );
 
-
+-- CATEGORY AND PRODUCT
 DROP TABLE IF EXISTS products_categories CASCADE;
-CREATE TABLE products_categories
+create table products_categories
 (
     product_id  int8 not null,
     category_id int8 not null
 );
 
-ALTER TABLE IF EXISTS products_categories
-    ADD CONSTRAINT products_categories_fk_category
-        FOREIGN KEY (category_id) REFERENCES categories;
+alter table if exists products_categories
+    add constraint products_categories_fk_category
+        foreign key (category_id) references categories;
 
-ALTER TABLE IF EXISTS products_categories
-    ADD CONSTRAINT products_categories_fk_products
-        FOREIGN KEY (product_id) REFERENCES products;
+alter table if exists products_categories
+    add constraint products_categories_fk_products
+        foreign key (product_id) references products;
 
-
-DROP TABLE IF EXISTS bucket_products CASCADE;
-CREATE TABLE bucket_products
+-- PRODUCT IN BUCKET
+DROP TABLE IF EXISTS buckets_products CASCADE;
+create table buckets_products
 (
-    bucket_id int8 not null,
-    product_id  int8 not null
+    bucket_id  int8 not null,
+    product_id int8 not null
 );
 
-ALTER TABLE IF EXISTS bucket_products
-    ADD CONSTRAINT bucket_products_fk_products
-        FOREIGN KEY (product_id) REFERENCES products;
+alter table if exists buckets_products
+    add constraint buckets_products_fk_products
+        foreign key (product_id) references products;
 
-ALTER TABLE IF EXISTS bucket_products
-    ADD CONSTRAINT bucket_products_fk_bucket
-        FOREIGN KEY (bucket_id) REFERENCES buckets;
+alter table if exists buckets_products
+    add constraint buckets_products_fk_bucket
+        foreign key (bucket_id) references buckets;
 
-
-DROP SEQUENCE IF EXISTS orders_seq;
-CREATE SEQUENCE orders_seq START 1 INCREMENT 1;
+-- ORDERS
+DROP SEQUENCE IF EXISTS order_seq;
+create sequence order_seq start 1 increment 1;
 
 DROP TABLE IF EXISTS orders CASCADE;
-CREATE TABLE orders
+create table orders
 (
-    id    int8 not null,
+    id      int8 not null,
     address varchar(255),
-    created timestamp,
     updated timestamp,
-    status varchar(255),
-    sum numeric(19, 2),
+    created timestamp,
+    status  varchar(255),
+    sum     numeric(19, 2),
     user_id int8,
     primary key (id)
 );
 
-ALTER TABLE IF EXISTS orders
-    ADD CONSTRAINT orders_fk_user
-        FOREIGN KEY (user_id) REFERENCES users;
+alter table if exists orders
+    add constraint orders_fk_user
+        foreign key (user_id) references users;
 
-
+-- ORDER DETAILS
 DROP SEQUENCE IF EXISTS order_details_seq;
-CREATE SEQUENCE order_details_seq START 1 INCREMENT 1;
+create sequence order_details_seq start 1 increment 1;
 
 DROP TABLE IF EXISTS orders_details CASCADE;
-CREATE TABLE orders_details
+create table orders_details
 (
-    id    int8 not null,
-    amount numeric(19,2),
-    price numeric(19,2),
-    order_id int8,
+    id         int8 not null,
+    amount     numeric(19, 2),
+    price      numeric(19, 2),
+    order_id   int8,
     product_id int8,
     details_id int8 not null,
     primary key (id)
 );
 
-ALTER TABLE IF EXISTS orders_details
-    ADD CONSTRAINT orders_details_fk_order
-        FOREIGN KEY (order_id) REFERENCES orders;
+alter table if exists orders_details
+    add constraint orders_details_fk_order
+        foreign key (order_id) references orders;
 
-ALTER TABLE IF EXISTS orders_details
-    ADD CONSTRAINT orders_details_fk_products
-        FOREIGN KEY (product_id) REFERENCES products;
+alter table if exists orders_details
+    add constraint orders_details_fk_products
+        foreign key (product_id) references products;
