@@ -5,6 +5,9 @@
     <title>Login page</title>
 </head>
 <body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<p th:if="${loginError}" class="error">Wrong user or password</p>
 <form th:action="@{/auth}" method="post">
     <table border="1">
         <tr>
@@ -18,6 +21,5 @@
     </table>
     <button type="submit">Log in</button>
 </form>
-
 </body>
 </html>
