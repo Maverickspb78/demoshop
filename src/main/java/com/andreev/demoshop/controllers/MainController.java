@@ -1,5 +1,6 @@
 package com.andreev.demoshop.controllers;
 
+import com.andreev.demoshop.aspect.Logger;
 import com.andreev.demoshop.service.SessionObjectHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,5 +39,11 @@ public class MainController {
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login";
+    }
+
+    @RequestMapping("/loging")
+    public String logging(Model model) {
+        model.addAttribute("loging", Logger.loggerList);
+        return "loging";
     }
 }
