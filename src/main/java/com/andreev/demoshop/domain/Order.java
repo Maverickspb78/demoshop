@@ -34,7 +34,7 @@ public class Order {
     private User user;
     private BigDecimal sum;
     private String address;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetails> details;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;

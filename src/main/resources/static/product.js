@@ -38,6 +38,15 @@ function renderItem(productJson) {
     $("#table").append("<tr>" +
         "<td>" + product.title + "</td>" +
         "<td>" + product.price + "</td>" +
-        "<td><a href='/products'" + product.id + "/bucket'>Add to backet</a></td>" +
+        // "<td><a href='/products'" + product.id + "/bucket'>Add to bucket</a></td>" +
+        "<td>"+
+        "<td><a onclick=\"javascript:addToBucket(\'" + product.id + "\');\">Add to bucket</a>" +"</td>" +
+        "</td>" +
         "</tr>");
+}
+
+function addToBucket(id) {
+    stomp.send("/app/addToBucket", {}, JSON.stringify({'id':id}));
+    $("#bucket").text("Bucket " + "Count: " + "Sum: ");
+
 }

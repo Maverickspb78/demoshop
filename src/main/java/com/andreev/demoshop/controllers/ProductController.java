@@ -56,4 +56,9 @@ public class ProductController {
     public void messageAddProduct(ProductDTO dto) {
         productService.addProduct(dto);
     }
+
+    @MessageMapping("/addToBucket")
+    public void massageToBucket(ProductDTO dto, Principal principal){
+        productService.addToUserBucket(dto.getId(), principal.getName());
+    }
 }
