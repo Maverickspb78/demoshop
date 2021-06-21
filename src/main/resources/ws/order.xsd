@@ -1,0 +1,29 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://andreev.com/demoshop/ws/order"
+           targetNamespace="http://andreev.com/demoshop/ws/order"
+           elementFormDefault="qualified">
+    <xs:element name="getOrderRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getOrderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="order" type="tns:orderWS" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="orderWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="created_date" type="xs:dateTime"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="summa" type="xs:double"/>
+            <xs:element name="product_amount" type="xs:integer"/>
+            <xs:element name="status" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

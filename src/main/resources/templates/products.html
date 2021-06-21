@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.title}">Cheese</td>
         <td th:text="${product.price}">12.0</td>
-        <td><a th:href="@{/products/{id}/bucket(id=${product.id})}">Add to bucket</a></td>
+        <td><a th:onclick="'javascript:addToBucket(\'' + ${product.id} +'\');'">Add to bucket</a></td>
     </tr>
 </table>
 

@@ -1,6 +1,7 @@
 package com.andreev.demoshop.config;
 
 import com.andreev.demoshop.endpoint.GreetingEndpoint;
+import com.andreev.demoshop.endpoint.OrderEndpoint;
 import com.andreev.demoshop.endpoint.ProductsEndpoint;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -53,5 +54,20 @@ public class WebServiceConfig {
     @Bean("productsSchema")
     public XsdSchema xsdProductsSchema() {
         return new SimpleXsdSchema(new ClassPathResource("ws/products.xsd"));
+    }
+
+    @Bean(name = "order")
+    public DefaultWsdl11Definition orderWsdlDefinition() {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("OrderPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace(OrderEndpoint.NAMESPACE_URL);
+        wsdl11Definition.setSchema(xsdOrderSchema());
+        return wsdl11Definition;
+    }
+
+    @Bean("orderSchema")
+    public XsdSchema xsdOrderSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("ws/order.xsd"));
     }
 }
