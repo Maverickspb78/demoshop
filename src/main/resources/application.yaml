@@ -1,20 +1,11 @@
 spring:
-#  autoconfigure:
-#    exclude:
-#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-  cloud:
-    config:
-      uri: http://localhost:8888
-  application:
-    name: storeConfidDB
-#spring:
-#  jpa:
-#    hibernate:
-#      ddl-auto: validate
-#    show-sql: true
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/shop
-#    username: admin
-#    password: 52669
-#  flyway:
-#    baseline-on-migrate: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop
+    username: admin
+    password: 52669
+  flyway:
+    baseline-on-migrate: true
