@@ -12,9 +12,9 @@ spring:
 #    hibernate:
 #      ddl-auto: validate
 #    show-sql: true
-#  datasource:
+  datasource:
 #    url: jdbc:postgresql://localhost:5432/shop
-#    username: admin
-#    password: 52669
+    username: admin
+    password: 52669
 #  flyway:
 #    baseline-on-migrate: true
