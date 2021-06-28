@@ -5,7 +5,6 @@ import com.andreev.demoshop.service.ProductService;
 import com.andreev.demoshop.ws.products.GetProductsRequest;
 import com.andreev.demoshop.ws.products.GetProductsResponse;
 import com.andreev.demoshop.ws.products.ProductsWS;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -16,9 +15,8 @@ public class ProductsEndpoint {
 
     public static final String NAMESPACE_URL = "http://andreev.com/demoshop/ws/products";
 
-    private ProductService productService;
+    private final ProductService productService;
 
-    @Autowired
     public ProductsEndpoint(ProductService productService) {
         this.productService = productService;
     }
@@ -35,7 +33,7 @@ public class ProductsEndpoint {
     private ProductsWS createProductWs(ProductDTO dto) {
         ProductsWS ws = new ProductsWS();
         ws.setId(dto.getId());
-        ws.setPrice(Double.parseDouble(dto.getPrice().toString()));
+        ws.setPrice(dto.getPrice());
         ws.setTitle(dto.getTitle());
         return ws;
     }

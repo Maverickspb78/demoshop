@@ -12,7 +12,7 @@ public class SessionObjectHolder {
     private long amountClicks = 0;
 
     public SessionObjectHolder() {
-        System.out.println("Session object created.");
+        System.out.println("Session object created!");
     }
 
     public long getAmountClicks() {
