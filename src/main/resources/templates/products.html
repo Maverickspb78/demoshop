@@ -11,6 +11,8 @@
     <!--app.js dependance: jquery-->
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/product.js"></script>
+
+    <div th:insert="~{fragments/menu :: #link}"></div>
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
@@ -24,11 +26,14 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.title}">Cheese</td>
         <td th:text="${product.price}">12.0</td>
-        <td><a th:onclick="'javascript:addToBucket(\'' + ${product.id} +'\');'">Add to bucket</a></td>
+<!--        <td sec:authorize="isAuthenticated()"><a th:onclick="'javascript:addToBucket(\'' + ${product.id} +'\');'"><i class="fas fa-shopping-basket"></i></a></td>-->
+        <td sec:authorize="isAuthenticated()"><a th:onclick="'javascript:addToBucket(\'' + ${product.id} +'\');'">
+            <button type="button" class="btn btn-success"><i class="fas fa-shopping-basket"></i></button></a></td>
+<!--        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')" ><a th:onclick="'javascript:removeProduct(\'' + ${product.id} +'\');'">Remove product</a></td>-->
     </tr>
 </table>
 
-<form style="text-align: center">
+<form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')" style="text-align: center ">
     <table align="center">
         <tr>
             <td>Title</td>
@@ -39,7 +44,7 @@
             <td><input type="number" id="price"></td>
         </tr>
     </table>
-    <button id="send" type="submit">Submit</button>
+    <button id="send" type="submit" >Submit</button>
 </form>
 
 </body>

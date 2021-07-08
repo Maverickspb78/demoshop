@@ -120,4 +120,44 @@ public class BucketServiceImpl implements BucketService {
         bucket.getProducts().clear();
         bucketRepository.save(bucket);
     }
+
+    @Override
+    @Transactional
+    public void removeFromBucket(Bucket bucket, Long id) {
+        List<Product> products = bucket.getProducts();
+        products.remove(products.stream().filter(product -> id.equals(product.getId())).findFirst().orElse(null));
+        bucket.setProducts(products);
+        bucketRepository.save(bucket);
+    }
+
+    @Override
+    @Transactional
+    public void removeAllIdFromBucket(Bucket bucket, Long id) {
+        List<Product> products = bucket.getProducts();
+        products.removeIf(product -> product.getId().equals(id));
+        bucket.setProducts(products);
+        bucketRepository.save(bucket);
+    }
+
+    public Bucket getBucket(String name){
+        User user = userService.findByName(name);
+        if(user == null){
+            throw new RuntimeException("User is not found");
+        }
+        Bucket bucket = user.getBucket();
+        if(bucket == null || bucket.getProducts().isEmpty()){
+        }
+        return bucket;
+    }
+
+    @Override
+    @Transactional
+    public void removeFromBucketS(Long id, String userName){
+        for (int i =0; i < getBucketByUser(userName).getBucketDetails().size(); i++){
+            if (getBucketByUser(userName).getBucketDetails().get(i).getProductId()==id){
+                removeFromBucket(getBucket(userName), id);
+                break;
+            }
+        }
+    }
 }
