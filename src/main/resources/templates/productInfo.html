@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Product info</title>
+    <div th:insert="~{fragments/menu :: #link}"></div>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<div align="center">
+    <table class="table-bordered table-sm" align="center" border="2" >
+        <tr>
+            <td>Title</td>
+            <td th:text="${product.get.title}">Cheese</td>
+        </tr>
+
+        <tr >
+            <td>Price</td>
+            <td th:text="${product.get.price}">11.0</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

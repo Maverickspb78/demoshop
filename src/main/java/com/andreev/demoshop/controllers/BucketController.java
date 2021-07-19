@@ -28,10 +28,9 @@ public class BucketController {
 
     @GetMapping("/bucket")
     public String aboutBucket(Model model, Principal principal){
-        if(principal == null){
+        if (principal == null){
             model.addAttribute("bucket", new BucketDTO());
-        }
-        else {
+        } else {
             BucketDTO bucketDto = bucketService.getBucketByUser(principal.getName());
             model.addAttribute("bucket", bucketDto);
         }
@@ -47,7 +46,7 @@ public class BucketController {
         return "redirect:/bucket";
         }
 
-    @GetMapping("/bucket/delete/{id}")
+    @GetMapping("/bucket/delete/{id}") // remove from bucket 1 count product from id
     public String removeFromBucket(@PathVariable(value = "id") Long id, Principal principal) {
         for (int i = 0; i < bucketService.getBucketByUser(principal.getName()).getBucketDetails().size(); i++) {
             if (bucketService.getBucketByUser(principal.getName()).getBucketDetails().get(i).getProductId().equals(id)) {
@@ -82,7 +81,7 @@ public class BucketController {
 
     }
 
-    @GetMapping("/bucket/deleteAll/{id}")
+    @GetMapping("/bucket/deleteAll/{id}") // remove from bucket all count product from id
     public String removeFromBucketAllId(@PathVariable(value = "id") Long id, Principal principal) {
         for (int i = 0; i < bucketService.getBucketByUser(principal.getName()).getBucketDetails().size(); i++) {
             if (bucketService.getBucketByUser(principal.getName()).getBucketDetails().get(i).getProductId().equals(id)) {

@@ -3,6 +3,7 @@ package com.andreev.demoshop.controllers;
 import com.andreev.demoshop.dto.ProductDTO;
 import com.andreev.demoshop.service.ProductService;
 import com.andreev.demoshop.service.SessionObjectHolder;
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -44,6 +45,12 @@ public class ProductController {
         }
         productService.addToUserBucket(id, principal.getName());
         return "redirect:/products";
+    }
+
+    @GetMapping("{id}")
+    public String productInfo(@PathVariable Long id, Model model){
+        model.addAttribute("product", productService.getProductById(id));
+        return "productInfo";
     }
 
     @PostMapping
