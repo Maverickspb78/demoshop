@@ -7,10 +7,11 @@
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<div align="center">
 
 <p th:if="${loginError}" class="error">Wrong user or password</p>
 <form th:action="@{/auth}" method="post">
-    <table border="1">
+    <table class="table-hover table-sm" border="0" align="center">
         <tr>
             <td>Name</td>
             <td><input type="text" name="username"></td>
@@ -20,7 +21,8 @@
             <td><input type="password" name="password"></td>
         </tr>
     </table>
-    <button type="submit">Log in</button>
+    <button class="btn btn-success" type="submit">Log in</button>
+    <div/>
 </form>
 </body>
 </html>

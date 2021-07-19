@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>Bucket</title>
     <!--STOMP-->
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<!--    <script src="/webjars/sockjs-client/sockjs.min.js"></script>-->
+<!--    <script src="/webjars/stomp-websocket/stomp.min.js"></script>-->
 
-    <!--app.js dependance: jquery-->
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/product.js"></script>
+<!--    &lt;!&ndash;app.js dependance: jquery&ndash;&gt;-->
+<!--    <script src="/webjars/jquery/jquery.min.js"></script>-->
+<!--    <script src="/product.js"></script>-->
     <div th:insert="~{fragments/menu :: #link}"></div>
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
-<h2>Your bucket</h2>
-<h3>All sum -> <b th:text="${bucket.sum}">1000</b></h3>
+<h2 align="center">Your bucket</h2>
+<!--<h3>All sum -> <b th:text="${bucket.sum}">1000</b></h3>-->
 <!--border="1" align="center"-->
+<div align="center">
 <table class="table-bordered table-sm" align="center" border="2" >
     <tr>
         <td>Title</td>
@@ -48,8 +49,9 @@
 </table>
 
     <form th:action="@{/bucket}" method="post">
-    <button type="submit">Create Order</button>
+    <button class="btn btn-success" type="submit">Create Order</button>
 
 </form>
+</div>
 </body>
 </html>

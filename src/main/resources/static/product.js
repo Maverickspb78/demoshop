@@ -1,6 +1,5 @@
 var stomp = null;
-var sum = 0;
-var count =1;
+
 
 // подключаемся к серверу по окончании загрузки страницы
 window.onload = function() {
@@ -42,19 +41,16 @@ function renderItem(productJson) {
     $("#table").append("<tr>" +
         "<td>" + product.title + "</td>" +
         "<td>" + product.price + "</td>" +
-        // "<td><a href='/products'" + product.id + "/bucket'>Add to bucket</a></td>" +
         "<td>"+
-        "<td><a onclick=\"javascript:addToBucket(\'" + product.id + "\');\">Add to bucket</a>" +"</td>" +
-        "<td><a onclick=\"javascript:removeProduct(\'" + product.id + "\');\">Remove</a>" +"</td>" +
+        "<td><a onclick=\"javascript:addToBucket(\'" + product.id + "\' + \'\">Add to bucket</a>" +"</td>" +
+        // "<td><a onclick=\"javascript:removeProduct(\'" + product.id + "\');\">Remove</a>" +"</td>" +
         "</td>" +
         "</tr>");
 }
 
-function addToBucket(id) {
+function addToBucket(id, productJson) {
     stomp.send("/app/addToBucket", {}, JSON.stringify({'id':id}));
-    $("#bucket").text("Bucket " + "Count: " + $("#bucket.amount") + "Sum: "+ $("#bucket.sum"));
-    count = count +1;
-    sum = sum + $("#price").val();
+    $("#bucket").text("Bucket " + "Count: "  + "Sum: ");
 
 }
 

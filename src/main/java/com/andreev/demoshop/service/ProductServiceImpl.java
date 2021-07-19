@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -60,5 +61,11 @@ public class ProductServiceImpl implements ProductService {
         Product product = mapper.toProduct(dto);
         Product savedProduct = productRepository.save(product);
         template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(savedProduct));
+    }
+
+    @Override
+    public Optional<Product> getProductById(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        return product;
     }
 }

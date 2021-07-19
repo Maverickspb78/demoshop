@@ -17,7 +17,7 @@
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 
-<table border="1" align="center" id="table">
+<table class="table-bordered table-sm" align="center" border="2" id="table">
     <tr>
         <td>Title</td>
         <td>Price</td>
@@ -26,8 +26,11 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.title}">Cheese</td>
         <td th:text="${product.price}">12.0</td>
+        <td  ><a th:href="@{/products/{id}(id=${product.id})}"><button type="button" class="btn btn-success" th:ref="@{/products/{id}(id=${product.id}})}">
+            <i class='fas fa-info'></i></button></a></td>
 <!--        <td sec:authorize="isAuthenticated()"><a th:onclick="'javascript:addToBucket(\'' + ${product.id} +'\');'"><i class="fas fa-shopping-basket"></i></a></td>-->
         <td sec:authorize="isAuthenticated()"><a th:onclick="'javascript:addToBucket(\'' + ${product.id} +'\');'">
+<!--            <a th:onclick="'javascript:bucketInfo();'">-->
             <button type="button" class="btn btn-success"><i class="fas fa-shopping-basket"></i></button></a></td>
 <!--        <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')" ><a th:onclick="'javascript:removeProduct(\'' + ${product.id} +'\');'">Remove product</a></td>-->
     </tr>

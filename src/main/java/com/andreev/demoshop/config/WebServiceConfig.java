@@ -1,5 +1,6 @@
 package com.andreev.demoshop.config;
 
+import com.andreev.demoshop.endpoint.BucketEndpoint;
 import com.andreev.demoshop.endpoint.GreetingEndpoint;
 import com.andreev.demoshop.endpoint.OrderEndpoint;
 import com.andreev.demoshop.endpoint.ProductsEndpoint;
@@ -69,5 +70,20 @@ public class WebServiceConfig {
     @Bean("orderSchema")
     public XsdSchema xsdOrderSchema() {
         return new SimpleXsdSchema(new ClassPathResource("ws/order.xsd"));
+    }
+
+    @Bean(name = "bucket")
+    public DefaultWsdl11Definition bucketWsdlDefinition() {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("BucketPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace(BucketEndpoint.NAMESPACE_URL);
+        wsdl11Definition.setSchema(xsdBucketSchema());
+        return wsdl11Definition;
+    }
+
+    @Bean("BucketSchema")
+    public XsdSchema xsdBucketSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("ws/bucket.xsd"));
     }
 }

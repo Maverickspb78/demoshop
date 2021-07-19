@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService{
     @Transactional
     public void saveOrder(Order order) {
         Order savedOrder = orderRepository.save(order);
-        sendIntegrationNotify(savedOrder);
+//        sendIntegrationNotify(savedOrder);
     }
 
     private void sendIntegrationNotify(Order order){
