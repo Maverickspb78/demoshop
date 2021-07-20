@@ -33,6 +33,6 @@ logging:
   level:
     org.springframework.web: debug
     org.springframework.ws: debug
-server:
-  hostname: localhost
-  port: ${PORT:8080}
+#server:
+#  hostname: localhost
+#  port: ${PORT:8080}
