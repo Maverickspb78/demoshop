@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,22 +19,28 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserService userService;
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
+
+//    @Autowired
+//    public void setUserService(UserService userService) {
+//        this.userService = userService;
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return  new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -44,11 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setUserDetailsService(userService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return  new BCryptPasswordEncoder();
     }
 
     @Override
@@ -71,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .csrf().disable();
     }
+
     private void initUserService() {
         if (userService == null) {
             userService = applicationContext.getBean(UserService.class);
