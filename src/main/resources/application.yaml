@@ -34,8 +34,8 @@ logging:
     org.springframework.web: debug
     org.springframework.ws: debug
 
-server:
-  port: 5000
+# server:
+#   port: 5000
 #server:
 #  hostname: localhost
 #  port: ${PORT:8080}
