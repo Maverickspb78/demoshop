@@ -22,7 +22,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
   datasource:
     url: jdbc:${DATABASE_PATH}
     username: ${DATABASE_USER}
