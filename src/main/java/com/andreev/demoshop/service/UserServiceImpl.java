@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
                 .email(userDTO.getEmail())
                 .role(Role.CLIENT)
                 .build();
-        this.save(user);
+        userRepository.save(user);
         return true;
     }
 
