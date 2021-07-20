@@ -2,7 +2,9 @@ package com.andreev.demoshop.config;
 
 import com.andreev.demoshop.domain.Role;
 import com.andreev.demoshop.service.UserService;
+import com.sun.javafx.fxml.BeanAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -26,6 +28,8 @@ import javax.persistence.Basic;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -69,5 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                 .and()
                     .csrf().disable();
+    }
+    private void initUserService() {
+        if (userService == null) {
+            userService = applicationContext.getBean(UserService.class);
+        }
     }
 }
