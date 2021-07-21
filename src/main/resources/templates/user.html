@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add user</title>
+    <title>Registration</title>
     <div th:insert="~{fragments/menu :: #link}"></div>
 </head>
 <body>
-<div th:insert="~{fragments/menu :: #nav-menu}"></div>
-
+<div th:insert="~{fragments/menu :: #nav-menu}" ></div>
+<div align="center">
 <form th:action="@{/users/new}" th:object="${user}" method="post">
     <table border="1">
         <tr>
-            <td>Name</td>
+            <td>Login</td>
             <td><input type="text" th:field="*{username}"></td>
         </tr>
         <tr>
@@ -27,7 +27,9 @@
             <td><input type="email" th:field="*{email}"></td>
         </tr>
     </table>
-    <button type="submit">Save</button>
+    <a class="btn btn-primary" th:href="@{/login}">Back</a>
+    <button class="btn btn-success" type="submit">Registration</button>
 </form>
+</div>
 </body>
 </html>

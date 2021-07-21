@@ -3,7 +3,6 @@ package com.andreev.demoshop.controllers;
 import com.andreev.demoshop.domain.User;
 import com.andreev.demoshop.dto.UserDTO;
 import com.andreev.demoshop.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -30,7 +28,7 @@ public class UserController {
         return "userList";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/new")
     public String newUser(Model model) {
         System.out.println("called method newUser");
@@ -88,5 +86,12 @@ public class UserController {
         }
         userService.updateProfile(dto);
         return "redirect:/users/profile";
+    }
+
+    @GetMapping("/activate/{code}")
+    public String activateUser(Model model, @PathVariable("code") String activateCode){
+        boolean activated = userService.activateUser(activateCode);
+        model.addAttribute("activated", activated);
+        return "activate-user";
     }
 }
