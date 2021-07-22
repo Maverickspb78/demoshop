@@ -26,8 +26,12 @@ public class MailSenderServiceImpl implements MailSenderService {
     @Override
     public void sendActivateCode(User user) {
         String subject = "please activate your account";
+//        local version
+//        String content = "Please activate your account. go to the link: \n"
+//                + "https://" + hostname + ":" + port + "/users/activate/" + user.getActivateCode();
+//        online version
         String content = "Please activate your account. go to the link: \n"
-                + "https://" + hostname + ":" + port + "/users/activate/" + user.getActivateCode();
+                + "https://" + hostname + "/users/activate/" + user.getActivateCode();
         sendMail(user.getEmail(), subject, content);
     }
 
