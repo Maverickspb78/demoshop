@@ -44,5 +44,5 @@ mail:
     host: smtp.list.ru
     port: 25
     username: lenun@list.ru
-    password: 5564210Zz
-#    ${hidden.email.password}
+    password: 12346
+    #    ${hidden.email.password}
