@@ -41,7 +41,7 @@ server:
   port: ${PORT:8080}
 mail:
   server:
-    host: smtp.gmail.com
-    port: 587
-    username: maverickspb78@gmail.com
-    password: ${hidden.email.password}
+    host: smtp.mail.ru
+    port: 465
+    username: lenun@list.ru
+    password: ${hidden_email_password}
