@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <div th:insert="~{fragments/menu :: #link}"></div>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<div align="center">
+
+    <table class="table-bordered table-sm" align="center" border="2" >
+        <tr>
+            <td>Title</td>
+            <td>Amount</td>
+            <td>Price</td>
+            <td>Sum</td>
+        </tr>
+        <tr th:each="detail : ${bucket.bucketDetails}">
+            <td th:text="${detail.title}">Cheese</td>
+            <td th:text="${detail.amount}">2</td>
+            <td th:text="${detail.price}">11.0</td>
+            <td th:text="${detail.sum}">22</td>
+        </tr>
+        <tr>
+            <td><td>
+            <td>
+            <td><b th:text="${bucket.sum}">1000</b></td>
+        </tr>
+    </table>
+    <form th:action="@{/bucket}" method="post">
+        <table class="table-hover table-sm" border="0" align="center">
+            <tr>
+                <td>Address</td>
+                <td><input type="" name="address"></td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td><input type="time" name="timeD"></td>
+            </tr>
+        </table>
+        <button class="btn btn-success" type="submit">Create Order</button>
+        <div/>
+    </form>
+</div>
+
+</body>
+</html>

@@ -7,17 +7,17 @@
 #      uri: http://localhost:8888
 #  application:
 #    name: storeConfidDB
-#spring:
-#  jpa:
-#    hibernate:
-#      ddl-auto: validate
-#    show-sql: true
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/shop
-#    username: admin
-#    password: 52669
-#  flyway:
-#    baseline-on-migrate: true
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop
+    username: admin
+    password: 52669
+  flyway:
+    baseline-on-migrate: true
 
 logging:
   level:
@@ -25,16 +25,16 @@ logging:
     org.springframework.ws: debug
 
 
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate
-  datasource:
-    url: jdbc:${DATABASE_PATH}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
-  flyway:
-    baseline-on-migrate: true
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: validate
+#  datasource:
+#    url: jdbc:${DATABASE_PATH}
+#    username: ${DATABASE_USER}
+#    password: ${DATABASE_PASSWORD}
+#  flyway:
+#    baseline-on-migrate: true
 
 server:
   hostname: mav-eshop.herokuapp.com
@@ -44,4 +44,5 @@ mail:
     host: smtp.list.ru
     port: 25
     username: lenun@list.ru
-    password: ${hidden.email.password}
+    password: 12346
+    #    ${hidden.email.password}
