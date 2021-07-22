@@ -37,7 +37,7 @@ spring:
     baseline-on-migrate: true
 
 server:
-  hostname: localhost
+  hostname: mav-eshop.herokuapp.com
   port: ${PORT:8080}
 mail:
   server:
