@@ -41,7 +41,7 @@ server:
   port: ${PORT:8080}
 mail:
   server:
-    host: smtp.mail.ru
-    port: 465
+    host: smtp.list.ru
+    port: 25
     username: lenun@list.ru
     password: ${hidden_email_password}
