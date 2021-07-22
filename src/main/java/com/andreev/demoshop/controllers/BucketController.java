@@ -40,7 +40,7 @@ public class BucketController {
     }
 
     @PostMapping("/bucket")
-    public String commitBucket(Principal principal, @RequestParam("address") String address){
+    public String commitBucket(Principal principal, @RequestParam(value = "address", required = false) String address){
         if(principal != null){
             bucketService.commitBucketToOrder(principal.getName(), address);
         }
