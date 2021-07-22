@@ -13,7 +13,7 @@ public interface BucketService {
 
     BucketDTO getBucketByUser(String name);
 
-    void commitBucketToOrder(String username);
+    void commitBucketToOrder(String username, String address);
 
     void removeFromBucket(Bucket bucket, Long id);
 

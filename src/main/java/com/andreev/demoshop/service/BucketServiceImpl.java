@@ -87,7 +87,7 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     @Transactional
-    public void commitBucketToOrder(String username) {
+    public void commitBucketToOrder(String username, String address) {
         User user = userService.findByName(username);
         if(user == null){
             throw new RuntimeException("User is not found");
@@ -114,7 +114,7 @@ public class BucketServiceImpl implements BucketService {
 
         order.setDetails(orderDetails);
         order.setSum(total);
-        order.setAddress("none");
+        order.setAddress(address);
 
         orderService.saveOrder(order);
         bucket.getProducts().clear();

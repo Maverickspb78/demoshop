@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.stream.IntStream;
@@ -39,9 +40,9 @@ public class BucketController {
     }
 
     @PostMapping("/bucket")
-    public String commitBucket(Principal principal){
+    public String commitBucket(Principal principal, @RequestParam("address") String address){
         if(principal != null){
-            bucketService.commitBucketToOrder(principal.getName());
+            bucketService.commitBucketToOrder(principal.getName(), address);
         }
         return "redirect:/bucket";
         }
@@ -54,25 +55,20 @@ public class BucketController {
                 break;
             }
         }
-
-////        IntStream.range(0, bucketList.size()).filter(i -> bucketList.get(i).getProductId()==id).findFirst().ifPresent(bucketList::remove);
-//        IntStream.range(0, bucketService.getBucketByUser(principal.getName()).getBucketDetails().size())
-// .filter(i -> bucketService.getBucketByUser(principal.getName()).getBucketDetails().get(i).getProductId()==id)
-//                .findAny().ifPresent(bucketService.getBucketByUser(principal.getName()).getBucketDetails()::remove);
         return "redirect:/bucket";
     }
 
-    @MessageMapping("/removeProduct")
-    @Transactional
-    public void massageRemoveProduct(ProductDTO dto, Principal principal) {
-        Long id = dto.getId();
-        for (int i = 0; i < bucketService.getBucketByUser(principal.getName()).getBucketDetails().size(); i++) {
-            if (bucketService.getBucketByUser(principal.getName()).getBucketDetails().get(i).getProductId().equals(id)) {
-                bucketService.removeFromBucket(bucketService.getBucket(principal.getName()), id);
-                break;
-            }
-        }
-    }
+//    @MessageMapping("/removeProduct")
+//    @Transactional
+//    public void massageRemoveProduct(ProductDTO dto, Principal principal) {
+//        Long id = dto.getId();
+//        for (int i = 0; i < bucketService.getBucketByUser(principal.getName()).getBucketDetails().size(); i++) {
+//            if (bucketService.getBucketByUser(principal.getName()).getBucketDetails().get(i).getProductId().equals(id)) {
+//                bucketService.removeFromBucket(bucketService.getBucket(principal.getName()), id);
+//                break;
+//            }
+//        }
+//    }
 
     @GetMapping("/bucket/add/{id}")
     public String addFromBucket(@PathVariable(value = "id") Long id, Principal principal) {
@@ -89,6 +85,18 @@ public class BucketController {
             }
         }
         return "redirect:/bucket";
+    }
+
+    @GetMapping("/bucket/order")
+    public String aboutOrder(Model model, Principal principal){
+        if (principal == null){
+            model.addAttribute("bucket", new BucketDTO());
+        } else {
+            BucketDTO bucketDto = bucketService.getBucketByUser(principal.getName());
+            model.addAttribute("bucket", bucketDto);
+        }
+
+        return "order";
     }
 }
 
