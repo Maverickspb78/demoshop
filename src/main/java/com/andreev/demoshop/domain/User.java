@@ -29,4 +29,6 @@ public class User {
     private Role role;
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Bucket bucket;
+    @Column(name = "activate_code")
+    private String activateCode;
 }
